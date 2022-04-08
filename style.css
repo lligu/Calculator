@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff;
+}
+
+#calculator {
+    background-color: #353535;
+    padding: 10px;
+    width: 400px;
+    height: 600px;
+    font-family: 'Source Code Pro', monospace;
+    box-sizing: content-box;
+    border: 5px solid black;
+    border-radius: 5%;
+}
+
+#calcScreen {
+    background-color: #d9d9d9;
+    height: 125px;
+    width: 350px;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 20px;
+    margin: 20px auto 30px auto;
+    font-size: 2rem;
+    border-radius: 10px;
+}
+
+#calcHistory {
+    align-self:flex-end;
+    font-size: 1.25rem;
+}
+
+#calcBody {
+    height: 450px;
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1.5rem;
+    padding-bottom: 20px;
+}
+
+#calcBody div {
+    background-color: #3c6e71;
+    color: #d9d9d9;
+    width: 60px;
+    height: 70px;
+    display: flex;
+    flex: 1 0 20%;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid black;
+    margin: 0px 5px;
+    border-radius: 10px;
+}
+
+#calcBody div:hover {
+    cursor: pointer;
+    opacity: 0.75;
+}
+
+.darkerButton {
+    background-color: #284b63 !important;
+}
