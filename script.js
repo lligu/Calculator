@@ -16,14 +16,12 @@ function divide(a, b) {
         return Math.round((a / b) * 100) / 100;
     }
 }
-function module(a, b) {
-    if (b === 0) {
-        autoReset();
-        return "Noope";
-    } else {
-        return Math.round((a % b) * 100) / 100;
-    }
-}
+function power(a, b) {
+    let array = new Array(b);
+    array.fill(a);
+    initial = 1;
+    return Math.round((array.reduce((x, y) => x * y, initial)) * 100) / 100;
+};
 function operation(func, x, y) {
     return func(x, y);
 }
@@ -38,14 +36,15 @@ const calcButtons = document.querySelectorAll('.calcButton');
 calcButtons.forEach((button) => {
     button.addEventListener('click', () => {
         buttonValue = button.textContent;
-        if (isResult === true) {
+        while (isResult === true) {
             if (buttonValue.match(/[0-9]/)) {
                 clear();
+                digitsArray.push(buttonValue);
+                calcCurrent.textContent = digitsArray.join('');
             }
-            digitsArray.push(buttonValue);
-            calcCurrent.textContent = digitsArray.join('');
             isResult = false;
-        } else if (digitsArray[digitsArray.length - 1] === undefined) {
+        }
+        if (digitsArray[digitsArray.length - 1] === undefined) {
             if (buttonValue.match(/[0-9]/)) {
                 digitsArray.push(buttonValue);
                 calcCurrent.textContent = digitsArray.join('');
@@ -54,10 +53,10 @@ calcButtons.forEach((button) => {
             if (buttonValue.match(/[0-9]/) || buttonValue === ".") {
                 if (buttonValue === ".") {
                     if (!digitsArray[digitsArray.length - 1].includes(".")) {
-                        digitsArray[digitsArray.length - 1] = `${digitsArray[digitsArray.length - 1]}` + `${buttonValue}`
+                        digitsArray[digitsArray.length - 1] = `${digitsArray[digitsArray.length - 1]}` + `${buttonValue}`;
                     }
                 } else if (parseFloat(digitsArray[digitsArray.length - 1]) < 99999) {
-                    digitsArray[digitsArray.length - 1] = `${digitsArray[digitsArray.length - 1]}` + `${buttonValue}`
+                    digitsArray[digitsArray.length - 1] = `${digitsArray[digitsArray.length - 1]}` + `${buttonValue}`;
                 }
             } else {
                 digitsArray.push(buttonValue);
@@ -109,7 +108,7 @@ delButton.addEventListener('click', () => {
 
 // Elaborate the array
 const findOperator1 = function (element) {
-    if (element === "*" || element === "/" || element === "%") {
+    if (element === "*" || element === "/" || element === "^") {
         return true;
     }
 }
@@ -122,7 +121,8 @@ const calcHistory = document.querySelector('#calcHistory');
 calcHistory.textContent = "";
 const equalButton = document.querySelector('#buttonEqual');
 equalButton.addEventListener('click', (e) => {
-    calcHistory.textContent = `${calcHistory.textContent} ` + `${digitsArray.join('')}=`;
+    calcHistory.textContent = "";
+    calcHistory.textContent = `${digitsArray.join(' ')} =`;
     e.stopPropagation();
     while (digitsArray.findIndex(findOperator1) !== -1) {
         foundIndex = digitsArray.findIndex(findOperator1);
@@ -134,7 +134,7 @@ equalButton.addEventListener('click', (e) => {
         } else if (operator === "/") {
             result = divide(firstNumber, secondNumber);
         } else {
-            result = module(firstNumber, secondNumber);
+            result = power(firstNumber, secondNumber);
         }
         digitsArray[foundIndex - 1] = result;
         digitsArrayPt1 = digitsArray.slice(0, foundIndex);
@@ -163,6 +163,7 @@ equalButton.addEventListener('click', (e) => {
         calcCurrent.textContent = digitsArray.join('');
     }
     isResult = true;
+    digitsArray[digitsArray.length - 1] = digitsArray[digitsArray.length - 1].toString();
 })
 
 // Look at https://rlmoser99.github.io/calculator/

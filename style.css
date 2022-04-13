@@ -36,13 +36,13 @@ main {
     align-items: center;
     padding: 0px 20px;
     margin: 20px auto 30px auto;
-    font-size: 2rem;
+    font-size: 2.5rem;
     border-radius: 10px;
 }
 
 #calcHistory {
     align-self:flex-end;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
 }
 
 #calcBody {
